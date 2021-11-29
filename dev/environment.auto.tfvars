@@ -100,26 +100,6 @@ eips = {
       Name        = "dev-cicd-ghe-01"
     }
   }
-  dev-cicd-ansible-01 = {
-    associate_with_private_ip = null
-    instance_ref              = null
-    network_interface_ref     = null
-    vpc                       = true
-    tags = {
-      environment = "dev"
-      Name        = "dev-cicd-ansible-01"
-    }
-  }
-  dev-cicd-jenkins-server-01 = {
-    associate_with_private_ip = null
-    instance_ref              = null
-    network_interface_ref     = null
-    vpc                       = true
-    tags = {
-      environment = "dev"
-      Name        = "dev-cicd-jenkins-server-01"
-    }
-  }
 }
 
 eip_associations = {
@@ -130,25 +110,11 @@ eip_associations = {
     network_interface_id_ref = "dev-cicd-ghe-01"
     private_ip_address       = null
   }
-  dev-cicd-ansible-01 = {
-    allocation_id_ref        = "dev-cicd-ansible-01"
-    allow_reassociation      = true
-    instance_id_ref          = null
-    network_interface_id_ref = "dev-cicd-ansible-01"
-    private_ip_address       = null
-  }
-  dev-cicd-jenkins-server-01 = {
-    allocation_id_ref        = "dev-cicd-jenkins-server-01"
-    allow_reassociation      = true
-    instance_id_ref          = null
-    network_interface_id_ref = "dev-cicd-jenkins-server-01"
-    private_ip_address       = null
-  }
 }
 
 network_interfaces = {
   dev-cicd-ghe-01 = {
-    subnet_id_ref        = "dev-cicd-ghe-01"
+    subnet_id_ref        = "dev-cicd-static-public-a"
     description          = "Managed by Terraform"
     private_ips          = ["172.31.48.11"]
     ipv6_addresses       = null
@@ -157,30 +123,6 @@ network_interfaces = {
     tags = {
       environment = "dev"
       Name        = "dev-cicd-ghe-01"
-    }
-  }
-  dev-cicd-ansible-01 = {
-    subnet_id_ref        = "dev-cicd-ansible-01"
-    description          = "Managed by Terraform"
-    private_ips          = ["172.31.48.10"]
-    ipv6_addresses       = null
-    security_groups_refs = ["dev-cicd-smg-linux", "dev-cicd-ansible"]
-    source_dest_check    = false
-    tags = {
-      environment = "dev"
-      Name        = "dev-cicd-ansible-01"
-    }
-  }
-  dev-cicd-jenkins-server-01 = {
-    subnet_id_ref        = "dev-cicd-jenkins-server-01"
-    description          = "Managed by Terraform"
-    private_ips          = ["172.31.48.12"]
-    ipv6_addresses       = null
-    security_groups_refs = ["dev-cicd-smg-linux", "dev-cicd-jenkins-server"]
-    source_dest_check    = false
-    tags = {
-      environment = "dev"
-      Name        = "dev-cicd-jenkins-server-01"
     }
   }
 }
@@ -200,22 +142,6 @@ security_groups = {
     tags = {
       environment = "dev"
       Name        = "dev-cicd-ghe"
-    }
-  }
-  dev-cicd-ansible = {
-    description = "Managed by Terraform"
-    vpc_id_ref  = "dev-cicd"
-    tags = {
-      environment = "dev"
-      Name        = "dev-cicd-ansible"
-    }
-  }
-  dev-cicd-jenkins-server = {
-    description = "Managed by Terraform"
-    vpc_id_ref  = "dev-cicd"
-    tags = {
-      environment = "dev"
-      Name        = "dev-cicd-jenkins-server"
     }
   }
 }
@@ -253,78 +179,6 @@ security_group_rules = {
     from_port                    = 0
     to_port                      = 0
     cidr_blocks                  = ["172.31.0.0/16", "192.168.20.0/24", "183.178.2.84/32"]
-    ipv6_cidr_blocks             = []
-    source_security_group_id_ref = null
-    self                         = false
-  }
-  dev-cicd-ansible-egress-any = {
-    security_group_id_ref        = "dev-cicd-ghe"
-    description                  = "Managed by Terraform"
-    type                         = "egress"
-    protocol                     = "-1"
-    from_port                    = 0
-    to_port                      = 0
-    cidr_blocks                  = ["0.0.0.0/0"]
-    ipv6_cidr_blocks             = []
-    source_security_group_id_ref = null
-    self                         = false
-  }
-  dev-cicd-ansible-ingress-ssh = {
-    security_group_id_ref        = "dev-cicd-ansible"
-    description                  = "Managed by Terraform"
-    type                         = "ingress"
-    protocol                     = "tcp"
-    from_port                    = 22
-    to_port                      = 22
-    cidr_blocks                  = ["183.178.2.84/32","203.218.6.213/32","61.93.230.193/32","172.31.0.0/16"]
-    ipv6_cidr_blocks             = []
-    source_security_group_id_ref = null
-    self                         = false
-  }
-  dev-cicd-ansible-egress-any = {
-    security_group_id_ref        = "dev-cicd-ansible"
-    description                  = "Managed by Terraform"
-    type                         = "egress"
-    protocol                     = "-1"
-    from_port                    = 0
-    to_port                      = 0
-    cidr_blocks                  = ["0.0.0.0/0"]
-    ipv6_cidr_blocks             = []
-    source_security_group_id_ref = null
-    self                         = false
-  }
-  dev-cicd-jenkins-server-ingress-https = {
-    security_group_id_ref        = "dev-cicd-jenkins-server"
-    description                  = "Managed by Terraform"
-    type                         = "ingress"
-    protocol                     = "tcp"
-    from_port                    = 8080
-    to_port                      = 8080
-    cidr_blocks                  = ["0.0.0.0/0"]
-    ipv6_cidr_blocks             = []
-    source_security_group_id_ref = null
-    self                         = false
-  }
-  dev-cicd-jenkins-server-ingress-any = {
-    security_group_id_ref        = "dev-cicd-jenkins-server"
-    description                  = "Managed by Terraform"
-    type                         = "ingress"
-    protocol                     = "-1"
-    from_port                    = 0
-    to_port                      = 0
-    cidr_blocks                  = ["172.31.0.0/16"]
-    ipv6_cidr_blocks             = []
-    source_security_group_id_ref = null
-    self                         = false
-  }
-  dev-cicd-jenkins-server-egress-any = {
-    security_group_id_ref        = "dev-cicd-jenkins-server"
-    description                  = "Managed by Terraform"
-    type                         = "egress"
-    protocol                     = "-1"
-    from_port                    = 0
-    to_port                      = 0
-    cidr_blocks                  = ["0.0.0.0/0"]
     ipv6_cidr_blocks             = []
     source_security_group_id_ref = null
     self                         = false
@@ -381,78 +235,6 @@ instances = {
     tags = {
       environment = "dev"
       Name        = "dev-cicd-ghe-01"
-    }
-    user_data_ref = null
-  }
-
-  dev-cicd-ansible-01 = {
-    ami               = "ami-05892ab682f8ff858" # Amazon Linux 2 AMI
-    availability_zone = "a"
-    credit_specification = {
-      cpu_credits = null
-    }
-    disable_api_termination = false
-    ebs_block_device = {}
-    ebs_optimized                        = false
-    hibernation                          = false
-    iam_instance_profile_ref             = null
-    instance_initiated_shutdown_behavior = "stop"
-    instance_type                        = "t3.medium"
-    key_name_ref                         = "dev-cicd-key"
-    monitoring                           = false
-    network_interface_id_ref             = "dev-cicd-ansible-01"
-    root_block_device = {
-      delete_on_termination = true
-      encrypted             = false
-      iops                  = null
-      kms_key_id_ref        = null
-      tags = {
-        environment = "dev"
-        Name        = "dev-cicd-ansible-01"
-      }
-      throughput  = null
-      volume_size = 50
-      volume_type = "gp2"
-    }
-    tags = {
-      environment = "dev"
-      Name        = "dev-cicd-ansible-01"
-    }
-    user_data_ref = null
-  }
-
-  dev-cicd-jenkins-server-01 = {
-    ami               = "ami-05892ab682f8ff858" # Amazon Linux 2 AMI
-    availability_zone = "a"
-    credit_specification = {
-      cpu_credits = null
-    }
-    disable_api_termination = false
-    ebs_block_device = {}
-    ebs_optimized                        = false
-    hibernation                          = false
-    iam_instance_profile_ref             = null
-    instance_initiated_shutdown_behavior = "stop"
-    instance_type                        = "t3.small"
-    key_name_ref                         = "dev-cicd-key"
-    monitoring                           = false
-    network_interface_id_ref             = "dev-cicd-jenkins-server-01"
-    root_block_device = {
-      delete_on_termination = true
-      encrypted             = false
-      iops                  = null
-      kms_key_id_ref        = null
-      tags = {
-        environment = "dev"
-        Name        = "dev-cicd-jenkins-server-01"
-      }
-      throughput  = null
-      volume_size = 50
-      volume_type = "gp2"
-    }
-    tags = {
-      environment = "dev"
-      Name        = "dev-cicd-jenkins-server-01"
     }
     user_data_ref = null
   }
