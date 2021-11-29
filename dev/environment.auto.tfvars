@@ -1,69 +1,80 @@
 aws_region = "ap-east-1"
 
-vpcs = {
+# vpcs = {
+#   dev-cicd = {
+#     cidr_block                       = "172.31.0.0/16"
+#     instance_tenancy                 = null
+#     enable_dns_support               = true
+#     enable_dns_hostnames             = true
+#     assign_generated_ipv6_cidr_block = false
+#     tags = {
+#       environment = "dev"
+#       Name        = "dev-cicd"
+#     }
+#   }
+# }
+data_vpcs = {
   dev-cicd = {
-    cidr_block                       = "172.31.0.0/16"
-    instance_tenancy                 = null
-    enable_dns_support               = true
-    enable_dns_hostnames             = true
-    assign_generated_ipv6_cidr_block = false
-    tags = {
-      environment = "dev"
-      Name        = "dev-cicd"
-    }
+    cidr_block = "172.31.0.0/16"
   }
 }
 
-subnets = {
+data_subnets = {
   dev-cicd-static-public-a = {
-    vpc_id_ref                      = "dev-cicd"
-    availability_zone               = "a"
-    cidr_block                      = "172.31.48.0/20"
-    ipv6_cidr_block                 = null
-    map_public_ip_on_launch         = true
-    assign_ipv6_address_on_creation = false
-    tags = {
-      environment = "dev"
-      Name        = "dev-cicd-static-public-a"
-    }
-  }
-  dev-cicd-static-private-a = {
-    vpc_id_ref                      = "dev-cicd"
-    availability_zone               = "a"
-    cidr_block                      = "172.31.16.0/20"
-    ipv6_cidr_block                 = null
-    map_public_ip_on_launch         = false
-    assign_ipv6_address_on_creation = false
-    tags = {
-      environment = "dev"
-      Name        = "dev-cicd-static-private-a"
-    }
-  }  
-  dev-cicd-static-private-b = {
-    vpc_id_ref                      = "dev-cicd"
-    availability_zone               = "b"
-    cidr_block                      = "172.31.0.0/20"
-    ipv6_cidr_block                 = null
-    map_public_ip_on_launch         = false
-    assign_ipv6_address_on_creation = false
-    tags = {
-      environment = "dev"
-      Name        = "dev-cicd-static-private-b"
-    }
-  }
-  dev-cicd-static-private-c = {
-    vpc_id_ref                      = "dev-cicd"
-    availability_zone               = "c"
-    cidr_block                      = "172.31.32.0/20"
-    ipv6_cidr_block                 = null
-    map_public_ip_on_launch         = false
-    assign_ipv6_address_on_creation = false
-    tags = {
-      environment = "dev"
-      Name        = "dev-cicd-static-private-c"
-    }
+    availability_zone = "a"
+    cidr_block        = "172.31.48.0/20"
   }
 }
+# subnets = {
+#   dev-cicd-static-public-a = {
+#     vpc_id_ref                      = "dev-cicd"
+#     availability_zone               = "a"
+#     cidr_block                      = "172.31.48.0/20"
+#     ipv6_cidr_block                 = null
+#     map_public_ip_on_launch         = true
+#     assign_ipv6_address_on_creation = false
+#     tags = {
+#       environment = "dev"
+#       Name        = "dev-cicd-static-public-a"
+#     }
+#   }
+#   dev-cicd-static-private-a = {
+#     vpc_id_ref                      = "dev-cicd"
+#     availability_zone               = "a"
+#     cidr_block                      = "172.31.16.0/20"
+#     ipv6_cidr_block                 = null
+#     map_public_ip_on_launch         = false
+#     assign_ipv6_address_on_creation = false
+#     tags = {
+#       environment = "dev"
+#       Name        = "dev-cicd-static-private-a"
+#     }
+#   }  
+#   dev-cicd-static-private-b = {
+#     vpc_id_ref                      = "dev-cicd"
+#     availability_zone               = "b"
+#     cidr_block                      = "172.31.0.0/20"
+#     ipv6_cidr_block                 = null
+#     map_public_ip_on_launch         = false
+#     assign_ipv6_address_on_creation = false
+#     tags = {
+#       environment = "dev"
+#       Name        = "dev-cicd-static-private-b"
+#     }
+#   }
+#   dev-cicd-static-private-c = {
+#     vpc_id_ref                      = "dev-cicd"
+#     availability_zone               = "c"
+#     cidr_block                      = "172.31.32.0/20"
+#     ipv6_cidr_block                 = null
+#     map_public_ip_on_launch         = false
+#     assign_ipv6_address_on_creation = false
+#     tags = {
+#       environment = "dev"
+#       Name        = "dev-cicd-static-private-c"
+#     }
+#   }
+# }
 
 tls_private_keys = {
   dev-cicd-key = {
