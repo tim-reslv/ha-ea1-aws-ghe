@@ -77,7 +77,7 @@ data_subnets = {
 # }
 
 tls_private_keys = {
-  dev-cicd-key = {
+  dev-ghe-key = {
     algorithm   = "RSA"
     rsa_bits    = "4096"
     ecdsa_curve = null
@@ -89,7 +89,7 @@ key_pairs = {
     public_key_ref = "dev-ghe-key"
     tags = {
       environment = "dev"
-      Name        = "dev-cicd-key"
+      Name        = "dev-ghe-key"
     }
   }
 }
