@@ -71,6 +71,16 @@ eips = {
       Name        = "dev-cicd-ghe-01"
     }
   }
+  dev-cicd-ghe-02 = {
+    associate_with_private_ip = null
+    instance_ref              = null
+    network_interface_ref     = null
+    vpc                       = true
+    tags = {
+      environment = "dev"
+      Name        = "dev-cicd-ghe-02"
+    }
+  }
 }
 
 eip_associations = {
@@ -94,6 +104,18 @@ network_interfaces = {
     tags = {
       environment = "dev"
       Name        = "dev-cicd-ghe-01"
+    }
+  }
+  dev-cicd-ghe-02 = {
+    subnet_id_ref        = "dev-cicd-static-public-a"
+    description          = "Managed by Terraform"
+    private_ips          = ["172.31.48.21"]
+    ipv6_addresses       = null
+    security_groups_refs = ["dev-cicd-smg-linux", "dev-cicd-ghe"]
+    source_dest_check    = false
+    tags = {
+      environment = "dev"
+      Name        = "dev-cicd-ghe-02"
     }
   }
 }
@@ -198,6 +220,57 @@ instances = {
     tags = {
       environment = "dev"
       Name        = "dev-cicd-ghe-01"
+    }
+    user_data_ref = null
+  }
+  dev-cicd-ghe-02 = {
+    ami               = "ami-0cf178ebed099cc93" # latest GitHub Enterprise Server 3.3.0.rc1
+    availability_zone = "a"
+    credit_specification = {
+      cpu_credits = null
+    }
+    disable_api_termination = false
+    ebs_block_device = {
+      sdb = {
+        delete_on_termination = true
+        device_name           = "/dev/sdb"
+        encrypted             = true
+        iops                  = null
+        snapshot_id           = null
+        tags = {
+          environment = "dev"
+          Name        = "dev-cicd-ghe-02"
+        }
+        throughput            = null
+        volume_size           = 1000
+        volume_type           = "gp2"
+		    kms_key_id_ref        = "cdra"
+      }
+    }
+    ebs_optimized                        = false
+    hibernation                          = false
+    iam_instance_profile_ref             = null
+    instance_initiated_shutdown_behavior = "stop"
+    instance_type                        = "r5.xlarge"
+    key_name_ref                         = "dev-ghe-key"
+    monitoring                           = false
+    network_interface_id_ref             = "dev-cicd-ghe-02"
+    root_block_device = {
+      delete_on_termination = true
+      encrypted             = true
+      iops                  = null
+      kms_key_id_ref        = "cdra"
+      tags = {
+        environment = "dev"
+        Name        = "dev-cicd-ghe-02"
+      }
+      throughput  = null
+      volume_size = 200
+      volume_type = "gp2"
+    }
+    tags = {
+      environment = "dev"
+      Name        = "dev-cicd-ghe-02"
     }
     user_data_ref = null
   }
