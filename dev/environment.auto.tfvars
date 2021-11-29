@@ -98,55 +98,55 @@ network_interfaces = {
   }
 }
 
-# security_groups = {
-#   dev-cicd-ghe = {
-#     description = "Managed by Terraform"
-#     vpc_id_ref  = "dev-cicd"
-#     tags = {
-#       environment = "dev"
-#       Name        = "dev-cicd-ghe"
-#     }
-#   }
-# }
+security_groups = {
+  dev-cicd-ghe = {
+    description = "Managed by Terraform"
+    vpc_id_ref  = "dev-cicd"
+    tags = {
+      environment = "dev"
+      Name        = "dev-cicd-ghe"
+    }
+  }
+}
 
-# security_group_rules = {
-#   dev-cicd-ghe-ingress-8443 = {
-#     security_group_id_ref        = "dev-cicd-ghe"
-#     description                  = "Managed by Terraform"
-#     type                         = "ingress"
-#     protocol                     = "tcp"
-#     from_port                    = 8443
-#     to_port                      = 8443
-#     cidr_blocks                  = ["0.0.0.0/0"]
-#     ipv6_cidr_blocks             = []
-#     source_security_group_id_ref = null
-#     self                         = false
-#   }
-#   dev-cicd-ghe-ingress-https = {
-#     security_group_id_ref        = "dev-cicd-ghe"
-#     description                  = "Managed by Terraform"
-#     type                         = "ingress"
-#     protocol                     = "tcp"
-#     from_port                    = 443
-#     to_port                      = 443
-#     cidr_blocks                  = ["0.0.0.0/0"]
-#     ipv6_cidr_blocks             = []
-#     source_security_group_id_ref = null
-#     self                         = false
-#   }
-#   dev-cicd-ghe-ingress-any = {
-#     security_group_id_ref        = "dev-cicd-ghe"
-#     description                  = "Managed by Terraform"
-#     type                         = "ingress"
-#     protocol                     = "-1"
-#     from_port                    = 0
-#     to_port                      = 0
-#     cidr_blocks                  = ["172.31.0.0/16", "192.168.20.0/24", "183.178.2.84/32"]
-#     ipv6_cidr_blocks             = []
-#     source_security_group_id_ref = null
-#     self                         = false
-#   }
-# }
+security_group_rules = {
+  dev-cicd-ghe-ingress-8443 = {
+    security_group_id_ref        = "dev-cicd-ghe"
+    description                  = "Managed by Terraform"
+    type                         = "ingress"
+    protocol                     = "tcp"
+    from_port                    = 8443
+    to_port                      = 8443
+    cidr_blocks                  = ["0.0.0.0/0"]
+    ipv6_cidr_blocks             = []
+    source_security_group_id_ref = null
+    self                         = false
+  }
+  dev-cicd-ghe-ingress-https = {
+    security_group_id_ref        = "dev-cicd-ghe"
+    description                  = "Managed by Terraform"
+    type                         = "ingress"
+    protocol                     = "tcp"
+    from_port                    = 443
+    to_port                      = 443
+    cidr_blocks                  = ["0.0.0.0/0"]
+    ipv6_cidr_blocks             = []
+    source_security_group_id_ref = null
+    self                         = false
+  }
+  dev-cicd-ghe-ingress-any = {
+    security_group_id_ref        = "dev-cicd-ghe"
+    description                  = "Managed by Terraform"
+    type                         = "ingress"
+    protocol                     = "-1"
+    from_port                    = 0
+    to_port                      = 0
+    cidr_blocks                  = ["172.31.0.0/16", "192.168.20.0/24", "183.178.2.84/32"]
+    ipv6_cidr_blocks             = []
+    source_security_group_id_ref = null
+    self                         = false
+  }
+}
   
 
 instances = {
