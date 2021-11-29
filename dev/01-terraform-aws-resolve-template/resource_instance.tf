@@ -15,7 +15,7 @@ resource "aws_instance" "instances" {
       device_name           = ebs_block_device.value.device_name
       encrypted             = ebs_block_device.value.encrypted
       iops                  = ebs_block_device.value.iops
-      kms_key_id            = ebs_block_device.value.encrypted ? aws_kms_key.kms_keys[ebs_block_device.value.kms_key_id_ref].arn : null
+      kms_key_id            = ebs_block_device.value.encrypted ? [for key, value in merge(aws_kms_key.kms_keys, data.aws_kms_key.kms_keys) : value.arn if key == ebs_block_device.value.kms_key_id_ref][0] : null
       snapshot_id           = ebs_block_device.value.snapshot_id
       tags                  = ebs_block_device.value.tags
       throughput            = ebs_block_device.value.throughput
@@ -38,7 +38,7 @@ resource "aws_instance" "instances" {
     delete_on_termination = each.value.root_block_device.delete_on_termination
     encrypted             = each.value.root_block_device.encrypted
     iops                  = each.value.root_block_device.iops
-    kms_key_id            = each.value.root_block_device.encrypted ? aws_kms_key.kms_keys[each.value.root_block_device.kms_key_id_ref].arn : null
+    kms_key_id            = each.value.root_block_device.encrypted ? [for key, value in merge(aws_kms_key.kms_keys, data.aws_kms_key.kms_keys) : value.arn if key == each.value.root_block_device.kms_key_id_ref][0] : null
     tags                  = each.value.root_block_device.tags
     throughput            = each.value.root_block_device.throughput
     volume_size           = each.value.root_block_device.volume_size
