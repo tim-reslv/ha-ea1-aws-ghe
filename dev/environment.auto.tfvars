@@ -130,6 +130,18 @@ network_interfaces = {
       Name        = "dev-cicd-ghe-02"
     }
   }
+  dev-cicd-ghe-backup = {
+    subnet_id_ref        = "dev-cicd-static-private-b"
+    description          = "Managed by Terraform"
+    private_ips          = ["172.31.0.11"]
+    ipv6_addresses       = null
+    security_groups_refs = ["dev-cicd-smg-linux", "dev-cicd-ghe-backup"]
+    source_dest_check    = false
+    tags = {
+      environment = "dev"
+      Name        = "dev-cicd-ghe-backup"
+    }
+  }
 }
 
 security_groups = {
