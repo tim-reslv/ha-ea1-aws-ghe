@@ -25,56 +25,22 @@ data_subnets = {
     cidr_block        = "172.31.48.0/20"
   }
 }
-# subnets = {
-#   dev-cicd-static-public-a = {
-#     vpc_id_ref                      = "dev-cicd"
-#     availability_zone               = "a"
-#     cidr_block                      = "172.31.48.0/20"
-#     ipv6_cidr_block                 = null
-#     map_public_ip_on_launch         = true
-#     assign_ipv6_address_on_creation = false
-#     tags = {
-#       environment = "dev"
-#       Name        = "dev-cicd-static-public-a"
-#     }
-#   }
-#   dev-cicd-static-private-a = {
-#     vpc_id_ref                      = "dev-cicd"
-#     availability_zone               = "a"
-#     cidr_block                      = "172.31.16.0/20"
-#     ipv6_cidr_block                 = null
-#     map_public_ip_on_launch         = false
-#     assign_ipv6_address_on_creation = false
-#     tags = {
-#       environment = "dev"
-#       Name        = "dev-cicd-static-private-a"
-#     }
-#   }  
-#   dev-cicd-static-private-b = {
-#     vpc_id_ref                      = "dev-cicd"
-#     availability_zone               = "b"
-#     cidr_block                      = "172.31.0.0/20"
-#     ipv6_cidr_block                 = null
-#     map_public_ip_on_launch         = false
-#     assign_ipv6_address_on_creation = false
-#     tags = {
-#       environment = "dev"
-#       Name        = "dev-cicd-static-private-b"
-#     }
-#   }
-#   dev-cicd-static-private-c = {
-#     vpc_id_ref                      = "dev-cicd"
-#     availability_zone               = "c"
-#     cidr_block                      = "172.31.32.0/20"
-#     ipv6_cidr_block                 = null
-#     map_public_ip_on_launch         = false
-#     assign_ipv6_address_on_creation = false
-#     tags = {
-#       environment = "dev"
-#       Name        = "dev-cicd-static-private-c"
-#     }
-#   }
-# }
+
+data_security_groups = {
+  dev-cicd-smg-linux = {
+    vpc_id_ref = "dev-cicd"
+    name       = "dev-cicd-smg-linux"
+  }
+  dev-cicd-ghe = {
+    vpc_id_ref = "dev-cicd"
+    name       = "dev-cicd-ghe"
+  }
+}
+data_kms_keys = {
+  cdra = {
+    key_id = "d1ef54c5-6174-4d32-8c1f-c56ab3fd2863"
+  }
+}
 
 tls_private_keys = {
   dev-ghe-key = {
@@ -91,12 +57,6 @@ key_pairs = {
       environment = "dev"
       Name        = "dev-ghe-key"
     }
-  }
-}
-
-data_kms_keys = {
-  cdra = {
-    key_id = "d1ef54c5-6174-4d32-8c1f-c56ab3fd2863"
   }
 }
 
@@ -138,24 +98,16 @@ network_interfaces = {
   }
 }
 
-security_groups = {
-  dev-cicd-smg-linux = {
-    description = "Managed by Terraform"
-    vpc_id_ref  = "dev-cicd"
-    tags = {
-      environment = "dev"
-      Name        = "dev-cicd-smg-linux"
-    }
-  }
-  dev-cicd-ghe = {
-    description = "Managed by Terraform"
-    vpc_id_ref  = "dev-cicd"
-    tags = {
-      environment = "dev"
-      Name        = "dev-cicd-ghe"
-    }
-  }
-}
+# security_groups = {
+#   dev-cicd-ghe = {
+#     description = "Managed by Terraform"
+#     vpc_id_ref  = "dev-cicd"
+#     tags = {
+#       environment = "dev"
+#       Name        = "dev-cicd-ghe"
+#     }
+#   }
+# }
 
 security_group_rules = {
   dev-cicd-ghe-ingress-8443 = {
@@ -219,7 +171,7 @@ instances = {
         throughput            = null
         volume_size           = 1000
         volume_type           = "gp2"
-		kms_key_id_ref        = "cdra"
+		    kms_key_id_ref        = "cdra"
       }
     }
     ebs_optimized                        = false
