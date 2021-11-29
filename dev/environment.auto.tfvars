@@ -85,8 +85,8 @@ tls_private_keys = {
 }
 
 key_pairs = {
-  dev-cicd-key = {
-    public_key_ref = "dev-cicd-key"
+  dev-ghe-key = {
+    public_key_ref = "dev-ghe-key"
     tags = {
       environment = "dev"
       Name        = "dev-cicd-key"
