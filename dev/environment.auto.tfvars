@@ -168,6 +168,18 @@ security_group_rules = {
     source_security_group_id_ref = null
     self                         = false
   }
+  dev-cicd-ghe-egress-any = {
+    security_group_id_ref        = "dev-cicd-ghe"
+    description                  = "Managed by Terraform"
+    type                         = "egress"
+    protocol                     = "-1"
+    from_port                    = 0
+    to_port                      = 0
+    cidr_blocks                  = ["0.0.0.0/0"]
+    ipv6_cidr_blocks             = []
+    source_security_group_id_ref = null
+    self                         = false
+  }
 }
   
 
