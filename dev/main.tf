@@ -1,5 +1,5 @@
 module "resolve-template" {
-  source = "../01-terraform-aws-resolve-template"
+  source = "./01-terraform-aws-resolve-template"
 
   data_template_files = var.data_template_files
   random_passwords    = var.random_passwords
