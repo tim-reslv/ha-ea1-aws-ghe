@@ -91,6 +91,13 @@ eip_associations = {
     network_interface_id_ref = "dev-cicd-ghe-01"
     private_ip_address       = null
   }
+  dev-cicd-ghe-02 = {
+    allocation_id_ref        = "dev-cicd-ghe-02"
+    allow_reassociation      = true
+    instance_id_ref          = null
+    network_interface_id_ref = "dev-cicd-ghe-02"
+    private_ip_address       = null
+  }
 }
 
 network_interfaces = {
