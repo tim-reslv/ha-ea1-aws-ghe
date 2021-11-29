@@ -35,14 +35,11 @@ data_security_groups = {
     vpc_id_ref = "dev-cicd"
     name       = "dev-cicd-smg-linux"
   }
-  dev-cicd-ghe = {
-    vpc_id_ref = "dev-cicd"
-    name       = "dev-cicd-ghe"
-  }
-  dev-cicd-ghe-backup = {
-    vpc_id_ref = "dev-cicd"
-    name       = "dev-cicd-ghe-backup"
-  }
+  # dev-cicd-ghe = {
+  #   vpc_id_ref = "dev-cicd"
+  #   name       = "dev-cicd-ghe"
+  # }
+
 }
 data_kms_keys = {
   cdra = {
