@@ -25,14 +25,14 @@ data_subnets = {
     cidr_block        = "172.31.48.0/20"
   }
   dev-cicd-static-public-b = {
-    availability_zone = "a"
+    availability_zone = "b"
     cidr_block        = "172.31.64.0/20"
   }
   dev-cicd-static-private-a = {
-    availability_zone = "b"
+    availability_zone = "a"
     cidr_block        = "172.31.16.0/20"
   }
-  dev-cicd-static-private-b = {
+  dev-cicd-static-public-b = {
     availability_zone = "b"
     cidr_block        = "172.31.0.0/20"
   }
