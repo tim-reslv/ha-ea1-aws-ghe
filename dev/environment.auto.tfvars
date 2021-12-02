@@ -28,6 +28,10 @@ data_subnets = {
     availability_zone = "b"
     cidr_block        = "172.31.0.0/20"
   }
+  dev-cicd-static-private-c = {
+    availability_zone = "c"
+    cidr_block        = "172.31.32.0/20"
+  }
 }
 
 data_security_groups = {
@@ -119,9 +123,9 @@ network_interfaces = {
     }
   }
   dev-cicd-ghe-02 = {
-    subnet_id_ref        = "dev-cicd-static-public-a"
+    subnet_id_ref        = "dev-cicd-static-public-b"
     description          = "Managed by Terraform"
-    private_ips          = ["172.31.48.21"]
+    private_ips          = ["172.31.64.11"]
     ipv6_addresses       = null
     security_groups_refs = ["dev-cicd-smg-linux", "dev-cicd-ghe"]
     source_dest_check    = false
@@ -131,9 +135,9 @@ network_interfaces = {
     }
   }
   dev-cicd-ghe-backup = {
-    subnet_id_ref        = "dev-cicd-static-private-b"
+    subnet_id_ref        = "dev-cicd-static-private-c"
     description          = "Managed by Terraform"
-    private_ips          = ["172.31.0.11"]
+    private_ips          = ["172.31.32.11"]
     ipv6_addresses       = null
     security_groups_refs = ["dev-cicd-smg-linux", "dev-cicd-ghe-backup"]
     source_dest_check    = false
@@ -301,7 +305,7 @@ instances = {
   }
   dev-cicd-ghe-02 = {
     ami               = "ami-0cf178ebed099cc93" # latest GitHub Enterprise Server 3.3.0.rc1
-    availability_zone = "a"
+    availability_zone = "b"
     credit_specification = {
       cpu_credits = null
     }
@@ -352,7 +356,7 @@ instances = {
   }
   dev-cicd-ghe-backup = {
     ami               = "ami-010eef29fc1fb56b0" # Amazon Linux 2 AMI (HVM) - Kernel 4.14
-    availability_zone = "b"
+    availability_zone = "c"
     credit_specification = {
       cpu_credits = null
     }
