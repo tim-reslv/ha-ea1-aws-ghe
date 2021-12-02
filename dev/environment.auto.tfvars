@@ -154,15 +154,20 @@ network_interfaces = {
       Name        = "dev-cicd-ghe-backup"
     }
   }
+  dev-cicd-ghe-runner-01 = {
+    subnet_id_ref        = "dev-cicd-static-private-a"
+    description          = "Managed by Terraform"
+    private_ips          = ["172.31.16.11"]
+    ipv6_addresses       = null
+    security_groups_refs = ["dev-cicd-smg-linux", "dev-cicd-ghe-runner"]
+    source_dest_check    = false
+    tags = {
+      environment = "dev"
+      Name        = "dev-cicd-ghe-runner-01"
+    }
+  }
 }
 
-# network_interface_attachments = {
-#   dev-cicd-ghe-backup = {
-#     instance_id_ref          = "dev-cicd-ghe-backup"
-#     network_interface_id_ref = "dev-cicd-ghe-backup"
-#     device_index             = 1
-#   }
-# }
 security_groups = {
   dev-cicd-ghe = {
     description = "Managed by Terraform"
@@ -178,6 +183,14 @@ security_groups = {
     tags = {
       environment = "dev"
       Name        = "dev-cicd-ghe-backup"
+    }
+  }
+  dev-cicd-ghe-runner = {
+    description = "Managed by Terraform"
+    vpc_id_ref  = "dev-cicd"
+    tags = {
+      environment = "dev"
+      Name        = "dev-cicd-ghe-runner"
     }
   }
 }
@@ -255,7 +268,30 @@ security_group_rules = {
     source_security_group_id_ref = null
     self                         = false
   }
-
+  dev-cicd-ghe-runner-ingress-any = {
+    security_group_id_ref        = "dev-cicd-ghe-runner"
+    description                  = "Managed by Terraform"
+    type                         = "ingress"
+    protocol                     = "-1"
+    from_port                    = 0
+    to_port                      = 0
+    cidr_blocks                  = ["172.31.16.0/20","172.31.48.0/20"]
+    ipv6_cidr_blocks             = []
+    source_security_group_id_ref = null
+    self                         = false
+  }
+  dev-cicd-ghe-runner-egress-any = {
+    security_group_id_ref        = "dev-cicd-ghe-runner"
+    description                  = "Managed by Terraform"
+    type                         = "egress"
+    protocol                     = "-1"
+    from_port                    = 0
+    to_port                      = 0
+    cidr_blocks                  = ["0.0.0.0/0"]
+    ipv6_cidr_blocks             = []
+    source_security_group_id_ref = null
+    self                         = false
+  }
 }
   
 
@@ -410,6 +446,41 @@ instances = {
     tags = {
       environment = "dev"
       Name        = "dev-cicd-ghe-backup"
+    }
+    user_data_ref = null
+  }
+  dev-cicd-ghe-runner-01 = {
+    ami               = "ami-010eef29fc1fb56b0" # Amazon Linux 2 AMI (HVM) - Kernel 4.14
+    availability_zone = "a"
+    credit_specification = {
+      cpu_credits = null
+    }
+    disable_api_termination = false
+    ebs_block_device = {}
+    ebs_optimized                        = false
+    hibernation                          = false
+    iam_instance_profile_ref             = null
+    instance_initiated_shutdown_behavior = "stop"
+    instance_type                        = "t3.small"
+    key_name_ref                         = "dev-ghe-key"
+    monitoring                           = false
+    network_interface_id_ref             = "dev-cicd-ghe-runner-01"
+    root_block_device = {
+      delete_on_termination = true
+      encrypted             = true
+      iops                  = null
+      kms_key_id_ref        = "cdra"
+      tags = {
+        environment = "dev"
+        Name        = "dev-cicd-ghe-runner-01"
+      }
+      throughput  = null
+      volume_size = 50
+      volume_type = "gp2"
+    }
+    tags = {
+      environment = "dev"
+      Name        = "dev-cicd-ghe-runner-01"
     }
     user_data_ref = null
   }
