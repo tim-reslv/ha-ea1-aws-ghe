@@ -156,13 +156,13 @@ network_interfaces = {
   }
 }
 
-network_interface_attachments = {
-  dev-cicd-ghe-backup = {
-    instance_id_ref          = "dev-cicd-ghe-backup"
-    network_interface_id_ref = "dev-cicd-ghe-backup"
-    device_index             = 1
-  }
-}
+# network_interface_attachments = {
+#   dev-cicd-ghe-backup = {
+#     instance_id_ref          = "dev-cicd-ghe-backup"
+#     network_interface_id_ref = "dev-cicd-ghe-backup"
+#     device_index             = 1
+#   }
+# }
 security_groups = {
   dev-cicd-ghe = {
     description = "Managed by Terraform"
